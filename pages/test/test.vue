@@ -66,17 +66,17 @@
 		<block>
 			<view class='padding flex text-center text-grey bg-white shadow-warp-my'>
 				<view class='flex flex-sub flex-direction solid-right'>
-					<view class="text-xxl text-orange">10</view>
+					<view class="text-xxl text-orange">{{rightNum}}</view>
 					<view class="margin-top-sm">
 						<text class='cuIcon-hot'></text> 权益数</view>
 				</view>
 				<view class='flex flex-sub flex-direction solid-right'>
-					<view class="text-xxl text-blue">5</view>
+					<view class="text-xxl text-blue">{{uploadNum}}</view>
 					<view class="margin-top-sm">
 						<text class='cuIcon-share'></text> 上传次数</view>
 				</view>
 				<view class='flex flex-sub flex-direction'>
-					<view class="text-xxl text-red">20</view>
+					<view class="text-xxl text-red">{{grades}}</view>
 					<view class="margin-top-sm">
 						<text class='cuIcon-like'></text> 积分</view>
 				</view>
@@ -101,8 +101,9 @@
 						</view>
 					</view>
 				</view>
-
-				<view class="cu-item " @click="mentalTest">
+				<button  @click="goRank()">查看排行榜</button>
+				<button  @click="logOut()">退出</button>
+				<!-- <view class="cu-item " @click="mentalTest">
 					<button class='content cu-btn'>
 						<text class='text-lg margin-sm'>答题测试</text>
 					</button>
@@ -111,18 +112,18 @@
 						<view class="cu-tag round bg-olive light">性格</view>
 						<view class="cu-tag round bg-blue light">星座</view>
 					</view>
-				</view>
+				</view> -->
 
+				<u-number-box v-model="value" @change="valChange">增加权益数</u-number-box>
 				
-				
-				<view class="cu-item">
+				<!-- <view class="cu-item">
 					<button class='content cu-btn' open-type="share">
 						
 						<text class='text-lg margin-sm'>分享小程序</text>
 					</button>
-				</view>
+				</view> -->
 				
-				<view class="cu-item" @click="playVideo">
+				<!-- <view class="cu-item" @click="playVideo">
 					<button class='content cu-btn'>
 						<text class='text-lg margin-sm'>支持作者</text>
 					</button>
@@ -130,14 +131,14 @@
 						<text class="text-xs text-orange">不需要打钱！</text>
 						<text class="text-xs text-grey">看看广告就很感谢啦～</text>
 					</view>
-				</view>
+				</view> -->
 				
-				<view class="cu-item">
+				<!-- <view class="cu-item">
 					<button class='content cu-btn' @tap="showGitee" data-target="ModalGitee">
 						<image style="border-radius: 50rpx;" src='https://zhoukaiwen.com/img/icon/gitee_logo.jpeg' class='png' mode='aspectFit'></image>
 						<text class='text-lg margin-sm'>下载小程序源码</text>
 					</button>
-				</view>
+				</view> -->
 
 			</view>
 
@@ -145,7 +146,7 @@
 
 			
 
-				<view class="cu-item ">
+				<!-- <view class="cu-item ">
 					<button class='content cu-btn' open-type="contact">
 						<text class='text-lg margin-sm'>项目需求</text>
 					</button>
@@ -169,13 +170,13 @@
 					<button class='content cu-btn' @click="goAboutMe">
 						<text class='text-lg margin-sm'>关于作者</text>
 					</button>
-				</view>
+				</view> -->
 			</view>
 
 		</block>
 		
 		<!-- Gitee弹窗 -->
-		<view class="cu-modal" :class="modalName=='ModalGitee'?'show':''">
+	<!-- 	<view class="cu-modal" :class="modalName=='ModalGitee'?'show':''">
 			<view class="cu-dialog">
 				<view class="cu-bar bg-white justify-end">
 					<view class="content">Gitee访问</view>
@@ -189,10 +190,10 @@
 				</view>
 			</view>
 		</view>
-
+ -->
 		<view style="height: 110rpx;width: 1rpx;"></view>
-		<button  @click="logOut()">退出</button>
-		<button  @click="goRank()">查看排行榜</button>
+		
+		
 	</view>
 </template>
 
@@ -203,6 +204,10 @@
 			return {
 				// Custom: this.Custom,
 				// CustomBar: this.CustomBar,
+				value: 0,
+				rightNum:0,
+				uploadNum:0,
+				grades:0,
 				islogin: false,
 				spaceShow:true,
 				modalName: null,
@@ -283,6 +288,7 @@
 			  videoAd.onError((err) => {})
 			  videoAd.onClose((res) => {})
 			}
+			this.getUser()
 			// uni.showToast({
 			//     title: '暂未开放,敬请期待',
 			// 	icon: 'none',
@@ -290,6 +296,9 @@
 			// });
 		},
 		methods: {
+			valChange(e) {
+							console.log('当前值为: ' + e.value)
+						},
 			playVideo(){
 				videoAd.show()
 				.catch(() => {
@@ -322,26 +331,7 @@
 			hideModal(e) {
 				this.modalName = null
 			},
-
-			// 答题测试
-			mentalTest() {
-				uni.navigateTo({
-					url: ''
-				})
-			},
-			//拨打固定电话
-			callPhoneNumber() {
-				uni.makePhoneCall({
-					phoneNumber: "18629591093",
-				});
-			},
 			goMedal(){
-				uni.navigateTo({
-					url: ''
-				})
-			},
-			// 关于作者
-			goAboutMe() {
 				uni.navigateTo({
 					url: ''
 				})
@@ -360,10 +350,20 @@
 				})
 			
 			},
-			getUserData(){
-				uni.request({
+			getUser(){
+				const that = this
+				uni.getStorage({
 					
-				})
+					key: 'token',
+					success: function (res) {
+						console.log(res.data);
+						that.rightNum=res.data.rightsNum;
+						that.uploadNum=res.data.uploadNum;
+						that.grades=res.data.grades;
+						console.log(that.rightNum)
+						
+					}
+				});
 			}
 			
 			// 薪资排名

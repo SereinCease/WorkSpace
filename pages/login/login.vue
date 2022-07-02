@@ -46,7 +46,6 @@
 					success(e) {
 						console.log(e.userInfo)
 						uni.setStorageSync('userInfo', e.userInfo)
-			
 						that.userInfo = e.userInfo
 						that.useravatar = e.userInfo.avatarUrl
 						that.username = e.userInfo.nickName
@@ -92,6 +91,7 @@
 				})
 			
 			},
+			
 		},
 		
 		
@@ -102,11 +102,16 @@
 			this.userInfo = userInfo
 			this.src=userInfo.avatarUrl
 			const user=uni.getStorageSync('token')
+			if(this.login){
+				uni.navigateTo({
+					url: "/pages/test/test"
+				})
+			}
 			if (user) {
 				this.userId=user.id
 				this.rightsNum=user.rightsNum
 			}
-			
+			console.log(this.islogin)
 		}
 	}
 </script>

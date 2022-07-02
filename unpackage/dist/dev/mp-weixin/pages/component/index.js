@@ -80,7 +80,7 @@ var components
 try {
   components = {
     uPopup: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 226))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 234))
     }
   }
 } catch (e) {
@@ -146,7 +146,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var cuClock = function cuClock() {__webpack_require__.e(/*! require.ensure | colorui/components/cu-clock */ "colorui/components/cu-clock").then((function () {return resolve(__webpack_require__(/*! @/colorui/components/cu-clock.vue */ 234));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var cuClock = function cuClock() {__webpack_require__.e(/*! require.ensure | colorui/components/cu-clock */ "colorui/components/cu-clock").then((function () {return resolve(__webpack_require__(/*! @/colorui/components/cu-clock.vue */ 242));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 

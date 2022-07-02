@@ -215,7 +215,6 @@ var _default = {
         success: function success(e) {
           console.log(e.userInfo);
           uni.setStorageSync('userInfo', e.userInfo);
-
           that.userInfo = e.userInfo;
           that.useravatar = e.userInfo.avatarUrl;
           that.username = e.userInfo.nickName;
@@ -264,6 +263,7 @@ var _default = {
 
 
 
+
   mounted: function mounted() {
     var userInfo = uni.getStorageSync('userInfo');
     console.log(userInfo);
@@ -271,11 +271,16 @@ var _default = {
     this.userInfo = userInfo;
     this.src = userInfo.avatarUrl;
     var user = uni.getStorageSync('token');
+    if (this.login) {
+      uni.navigateTo({
+        url: "/pages/test/test" });
+
+    }
     if (user) {
       this.userId = user.id;
       this.rightsNum = user.rightsNum;
     }
-
+    console.log(this.islogin);
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

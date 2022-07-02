@@ -95,6 +95,29 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
 var components
+try {
+  components = {
+    uNumberBox: function() {
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-number-box/u-number-box */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-number-box/u-number-box")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-number-box/u-number-box.vue */ 218))
+    }
+  }
+} catch (e) {
+  if (
+    e.message.indexOf("Cannot find module") !== -1 &&
+    e.message.indexOf(".vue") !== -1
+  ) {
+    console.error(e.message)
+    console.error("1. 排查组件名称拼写是否正确")
+    console.error(
+      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
+    )
+    console.error(
+      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
+    )
+  } else {
+    throw e
+  }
+}
 var render = function() {
   var _vm = this
   var _h = _vm.$createElement
@@ -330,6 +353,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 var videoAd = null;var _default =
 {
@@ -337,6 +361,10 @@ var videoAd = null;var _default =
     return {
       // Custom: this.Custom,
       // CustomBar: this.CustomBar,
+      value: 0,
+      rightNum: 0,
+      uploadNum: 0,
+      grades: 0,
       islogin: false,
       spaceShow: true,
       modalName: null,
@@ -417,6 +445,7 @@ var videoAd = null;var _default =
       videoAd.onError(function (err) {});
       videoAd.onClose(function (res) {});
     }
+    this.getUser();
     // uni.showToast({
     //     title: '暂未开放,敬请期待',
     // 	icon: 'none',
@@ -424,6 +453,9 @@ var videoAd = null;var _default =
     // });
   },
   methods: {
+    valChange: function valChange(e) {
+      console.log('当前值为: ' + e.value);
+    },
     playVideo: function playVideo() {
       videoAd.show().
       catch(function () {
@@ -456,26 +488,7 @@ var videoAd = null;var _default =
     hideModal: function hideModal(e) {
       this.modalName = null;
     },
-
-    // 答题测试
-    mentalTest: function mentalTest() {
-      uni.navigateTo({
-        url: '' });
-
-    },
-    //拨打固定电话
-    callPhoneNumber: function callPhoneNumber() {
-      uni.makePhoneCall({
-        phoneNumber: "18629591093" });
-
-    },
     goMedal: function goMedal() {
-      uni.navigateTo({
-        url: '' });
-
-    },
-    // 关于作者
-    goAboutMe: function goAboutMe() {
       uni.navigateTo({
         url: '' });
 
@@ -494,9 +507,19 @@ var videoAd = null;var _default =
 
 
     },
-    getUserData: function getUserData() {
-      uni.request({});
+    getUser: function getUser() {
+      var that = this;
+      uni.getStorage({
 
+        key: 'token',
+        success: function success(res) {
+          console.log(res.data);
+          that.rightNum = res.data.rightsNum;
+          that.uploadNum = res.data.uploadNum;
+          that.grades = res.data.grades;
+          console.log(that.rightNum);
+
+        } });
 
     }
 

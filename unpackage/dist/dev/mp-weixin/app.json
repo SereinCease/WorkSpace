@@ -19,6 +19,5 @@
     "plugin": "/pages/login/login",
     "cu-custom": "/colorui/components/cu-custom",
     "cu-loading": "/colorui/components/cu-loading"
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }
